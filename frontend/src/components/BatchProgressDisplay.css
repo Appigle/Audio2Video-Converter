@@ -1,0 +1,89 @@
+.batch-progress {
+  margin: 1.5rem 0;
+}
+
+.batch-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #dee2e6;
+}
+
+.batch-header h3 {
+  margin: 0;
+  color: #333;
+}
+
+.batch-summary {
+  font-size: 0.9rem;
+  color: #666;
+  font-weight: 500;
+}
+
+.batch-jobs {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.batch-job-item {
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  padding: 1rem;
+  background: white;
+}
+
+.batch-job-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.batch-job-filename {
+  font-weight: 500;
+  color: #333;
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin-right: 1rem;
+}
+
+.batch-job-status {
+  padding: 0.25rem 0.75rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.batch-job-status.queued {
+  background: #e9ecef;
+  color: #495057;
+}
+
+.batch-job-status.running {
+  background: #cfe2ff;
+  color: #084298;
+}
+
+.batch-job-status.succeeded {
+  background: #d1e7dd;
+  color: #0f5132;
+}
+
+.batch-job-status.failed {
+  background: #f8d7da;
+  color: #842029;
+}
+
+.batch-progress.error {
+  padding: 1rem;
+  background: #f8d7da;
+  border: 1px solid #f5c2c7;
+  border-radius: 8px;
+}
+

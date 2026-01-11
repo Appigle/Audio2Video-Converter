@@ -1,0 +1,13 @@
+# Base requirements (install these first)
+-r requirements-base.txt
+
+# Note: faster-whisper is NOT included here because it has dependency conflicts
+# with Python 3.14+ (requires onnxruntime which isn't available for Python 3.14).
+# Install it separately using the install script or manual steps below.
+
+# For Python 3.14+ users, install faster-whisper manually:
+# pip install faster-whisper --no-deps
+# pip install ctranslate2 huggingface-hub tokenizers
+
+# For Python 3.11/3.12 users, you can try:
+# pip install faster-whisper>=1.2.1
