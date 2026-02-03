@@ -1,10 +1,5 @@
 .upload-form {
-  max-width: 500px;
-  margin: 0 auto;
-  padding: 2rem;
-  background: white;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
 }
 
 .form-group {
@@ -14,28 +9,37 @@
 .form-group label {
   display: block;
   margin-bottom: 0.5rem;
-  font-weight: 500;
-  color: #333;
+  font-weight: 600;
+  color: var(--text-strong);
 }
 
 .form-group input[type="file"] {
   width: 100%;
-  padding: 0.5rem;
-  border: 1px solid #ddd;
-  border-radius: 4px;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: 12px;
   font-size: 0.9rem;
+  background: #fff;
+  cursor: pointer;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .form-group input[type="file"]:disabled {
-  background-color: #f5f5f5;
+  background-color: #f7f2f2;
   cursor: not-allowed;
+}
+
+.form-group input[type="file"]:focus-visible {
+  outline: none;
+  border-color: var(--focus);
+  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
 }
 
 .file-info {
   display: block;
   margin-top: 0.5rem;
   font-size: 0.85rem;
-  color: #666;
+  color: var(--text-muted);
 }
 
 .file-list {
@@ -47,29 +51,36 @@
 
 .batch-hint {
   font-size: 0.85rem;
-  color: #0d6efd;
+  color: var(--accent);
   font-weight: normal;
 }
 
 .submit-button {
   width: 100%;
-  padding: 0.75rem 1.5rem;
-  background-color: #007bff;
-  color: white;
+  padding: 0.85rem 1.5rem;
+  background-color: var(--cta);
+  color: var(--text-strong);
   border: none;
-  border-radius: 4px;
+  border-radius: 999px;
   font-size: 1rem;
-  font-weight: 500;
+  font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.2s;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: var(--button-shadow);
 }
 
 .submit-button:hover:not(:disabled) {
-  background-color: #0056b3;
+  transform: translateY(-1px);
+  box-shadow: var(--button-shadow-hover);
 }
 
 .submit-button:disabled {
-  background-color: #ccc;
+  background-color: #e7dede;
   cursor: not-allowed;
+  box-shadow: none;
 }
 
+.submit-button:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}

@@ -1,7 +1,7 @@
 /** API client functions */
 import type {
   ConvertResponse, ErrorResponse, TranscriptData,
-  ProgressResponse, BatchConvertResponse, BatchStatusResponse
+  ProgressResponse, BatchConvertResponse, BatchStatusResponse, HealthResponse
 } from '../types/api';
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000';
@@ -149,3 +149,19 @@ export async function getBatchStatus(batchId: string): Promise<BatchStatusRespon
   return response.json();
 }
 
+/**
+ * Get backend health status
+ */
+export async function getHealthStatus(): Promise<HealthResponse> {
+  const response = await fetch(`${API_BASE_URL}/api/health`);
+
+  if (!response.ok) {
+    throw new ApiError(
+      response.status,
+      'Failed to fetch health status',
+      `HTTP ${response.status}: ${response.statusText}`
+    );
+  }
+
+  return response.json();
+}

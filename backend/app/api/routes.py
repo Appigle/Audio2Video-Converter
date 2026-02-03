@@ -64,7 +64,7 @@ async def convert_audio_to_video(
             )
         
         # Create job
-        job_id = job_manager.create_job()
+        job_id = job_manager.create_job(audio.filename)
         logger.info(f"Created job {job_id}")
         
         # Initialize progress
@@ -87,6 +87,7 @@ async def convert_audio_to_video(
         # Return response immediately
         return ConvertResponse(
             job_id=job_id,
+            resource_base_name=job_manager.get_resource_base_name(job_id),
             video_url=f"/api/jobs/{job_id}/video",
             transcript_json_url=f"/api/jobs/{job_id}/transcript/json",
             transcript_vtt_url=f"/api/jobs/{job_id}/transcript/vtt",
@@ -114,7 +115,7 @@ async def get_video(job_id: str):
     return FileResponse(
         video_path,
         media_type="video/mp4",
-        filename=f"{job_id}_rendered_video.mp4"
+        filename=video_path.name
     )
 
 
@@ -129,7 +130,7 @@ async def get_transcript_json(job_id: str):
     return FileResponse(
         transcript_path,
         media_type="application/json",
-        filename=f"{job_id}_transcript_segments.json"
+        filename=transcript_path.name
     )
 
 
@@ -144,7 +145,7 @@ async def get_transcript_vtt(job_id: str):
     return FileResponse(
         vtt_path,
         media_type="text/vtt",
-        filename=f"{job_id}_subtitles.vtt"
+        filename=vtt_path.name
     )
 
 
@@ -200,7 +201,7 @@ async def batch_convert_audio_to_video(
                 FileHandler.validate_audio_file(audio_file)
                 
                 # Create job
-                job_id = job_manager.create_job()
+                job_id = job_manager.create_job(audio_file.filename)
                 logger.info(f"Created job {job_id} in batch {batch_id}")
                 
                 # Initialize progress
@@ -224,9 +225,11 @@ async def batch_convert_audio_to_video(
                 background_tasks.add_task(process_job, job_id, job_manager, audio_path, job_image_path)
                 
                 # Add to response
+                resource_base_name = job_manager.get_resource_base_name(job_id)
                 jobs.append(BatchJobItem(
                     job_id=job_id,
-                    filename=audio_file.filename or "unknown.m4a",
+                    filename=resource_base_name,
+                    resource_base_name=resource_base_name,
                     status="queued",
                     rendered_video_url=f"/api/jobs/{job_id}/video",
                     subtitles_url=f"/api/jobs/{job_id}/transcript/vtt",
@@ -274,11 +277,11 @@ async def get_batch_status(batch_id: str):
     for job_id in job_ids:
         progress = progress_store.get(job_id)
         if progress:
-            # Get filename from job directory or use job_id
-            filename = job_id  # Could be improved by storing filename in progress
+            resource_base_name = job_manager.get_resource_base_name(job_id)
             jobs.append(BatchJobStatus(
                 job_id=job_id,
-                filename=filename,
+                filename=resource_base_name,
+                resource_base_name=resource_base_name,
                 status=ProgressResponse(**progress.to_dict())
             ))
     
@@ -307,4 +310,3 @@ async def health_check():
         "status": "healthy",
         "ffmpeg_available": ffmpeg_available
     }
-

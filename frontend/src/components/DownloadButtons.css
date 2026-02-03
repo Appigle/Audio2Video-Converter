@@ -1,14 +1,16 @@
 .download-buttons {
-  margin: 1rem 0;
-  padding: 1rem;
-  background: #f8f9fa;
-  border-radius: 8px;
+  margin: 1.5rem 0;
+  padding: 1.25rem;
+  background: var(--surface);
+  border-radius: 16px;
+  box-shadow: var(--soft-shadow);
 }
 
 .download-buttons h4 {
   margin: 0 0 0.75rem 0;
   font-size: 1rem;
-  color: #333;
+  color: var(--text-strong);
+  font-weight: 600;
 }
 
 .download-buttons-group {
@@ -19,25 +21,43 @@
 
 .download-btn {
   padding: 0.6rem 1.2rem;
-  background: #28a745;
-  color: white;
+  background: var(--cta);
+  color: var(--text-strong);
   border: none;
-  border-radius: 4px;
+  border-radius: 999px;
   font-size: 0.9rem;
-  font-weight: 500;
+  font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.2s;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  box-shadow: var(--button-shadow);
 }
 
 .download-btn:hover {
-  background: #218838;
+  transform: translateY(-1px);
+  box-shadow: var(--button-shadow-hover);
 }
 
 .download-btn:active {
-  background: #1e7e34;
+  transform: translateY(0);
+}
+
+.download-btn:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+
+.download-icon {
+  display: inline-flex;
+  width: 18px;
+  height: 18px;
+}
+
+.download-icon svg {
+  width: 100%;
+  height: 100%;
 }
 
 @media (max-width: 768px) {
@@ -50,4 +70,3 @@
     justify-content: center;
   }
 }
-

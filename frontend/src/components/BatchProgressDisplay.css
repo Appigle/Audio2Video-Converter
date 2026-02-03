@@ -8,17 +8,17 @@
   align-items: center;
   margin-bottom: 1rem;
   padding-bottom: 0.5rem;
-  border-bottom: 2px solid #dee2e6;
+  border-bottom: 1px solid var(--border);
 }
 
 .batch-header h3 {
   margin: 0;
-  color: #333;
+  color: var(--text-strong);
 }
 
 .batch-summary {
   font-size: 0.9rem;
-  color: #666;
+  color: var(--text-muted);
   font-weight: 500;
 }
 
@@ -29,10 +29,11 @@
 }
 
 .batch-job-item {
-  border: 1px solid #dee2e6;
-  border-radius: 8px;
+  border: 1px solid var(--border);
+  border-radius: 16px;
   padding: 1rem;
-  background: white;
+  background: var(--surface);
+  box-shadow: var(--soft-shadow);
 }
 
 .batch-job-header {
@@ -44,7 +45,7 @@
 
 .batch-job-filename {
   font-weight: 500;
-  color: #333;
+  color: var(--text-strong);
   flex: 1;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -54,36 +55,35 @@
 
 .batch-job-status {
   padding: 0.25rem 0.75rem;
-  border-radius: 4px;
+  border-radius: 999px;
   font-size: 0.75rem;
   font-weight: 600;
   text-transform: uppercase;
 }
 
 .batch-job-status.queued {
-  background: #e9ecef;
-  color: #495057;
+  background: rgba(168, 213, 186, 0.35);
+  color: var(--text-strong);
 }
 
 .batch-job-status.running {
-  background: #cfe2ff;
-  color: #084298;
+  background: rgba(212, 175, 55, 0.25);
+  color: var(--text-strong);
 }
 
 .batch-job-status.succeeded {
-  background: #d1e7dd;
-  color: #0f5132;
+  background: rgba(168, 213, 186, 0.6);
+  color: var(--text-strong);
 }
 
 .batch-job-status.failed {
-  background: #f8d7da;
-  color: #842029;
+  background: rgba(232, 180, 184, 0.6);
+  color: var(--text-strong);
 }
 
 .batch-progress.error {
   padding: 1rem;
-  background: #f8d7da;
-  border: 1px solid #f5c2c7;
-  border-radius: 8px;
+  background: rgba(232, 180, 184, 0.4);
+  border: 1px solid rgba(232, 180, 184, 0.7);
+  border-radius: 16px;
 }
-

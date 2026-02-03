@@ -2,6 +2,7 @@
 
 export interface ConvertResponse {
   job_id: string;
+  resource_base_name: string;
   video_url: string;
   transcript_json_url: string;
   transcript_vtt_url: string;
@@ -37,6 +38,7 @@ export interface ProgressResponse {
 export interface BatchJobItem {
   job_id: string;
   filename: string;
+  resource_base_name: string;
   status: 'queued' | 'running' | 'succeeded' | 'failed';
   rendered_video_url?: string;
   subtitles_url?: string;
@@ -51,6 +53,7 @@ export interface BatchConvertResponse {
 export interface BatchJobStatus {
   job_id: string;
   filename: string;
+  resource_base_name: string;
   status: ProgressResponse;
 }
 
@@ -59,3 +62,18 @@ export interface BatchStatusResponse {
   jobs: BatchJobStatus[];
 }
 
+export interface HistoryEntry {
+  id: string;
+  jobId: string;
+  resourceBaseName: string;
+  videoUrl: string;
+  transcriptJsonUrl: string;
+  transcriptVttUrl: string;
+  createdAt: number;
+  source: 'single' | 'batch';
+}
+
+export interface HealthResponse {
+  status: string;
+  ffmpeg_available?: boolean;
+}

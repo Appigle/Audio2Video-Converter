@@ -202,7 +202,8 @@ Convert a single audio file to video with transcription. Processing runs in the 
 
 ```json
 {
-  "job_id": "uuid-string",
+  "job_id": "job_20240118_153045_123456",
+  "resource_base_name": "meeting_20240118_153045_123456",
   "video_url": "/api/jobs/{job_id}/video",
   "transcript_json_url": "/api/jobs/{job_id}/transcript/json",
   "transcript_vtt_url": "/api/jobs/{job_id}/transcript/vtt",
@@ -228,8 +229,9 @@ Convert multiple audio files in a single request. Each file is processed as an i
   "batch_id": "uuid-string",
   "jobs": [
     {
-      "job_id": "uuid-string",
-      "filename": "audio1.m4a",
+      "job_id": "job_20240118_153045_123456",
+      "filename": "meeting_20240118_153045_123456",
+      "resource_base_name": "meeting_20240118_153045_123456",
       "status": "queued",
       "rendered_video_url": "/api/jobs/{job_id}/video",
       "subtitles_url": "/api/jobs/{job_id}/transcript/vtt",
@@ -267,8 +269,9 @@ Get processing status for all jobs in a batch.
   "batch_id": "uuid-string",
   "jobs": [
     {
-      "job_id": "uuid-string",
-      "filename": "audio1.m4a",
+      "job_id": "job_20240118_153045_123456",
+      "filename": "meeting_20240118_153045_123456",
+      "resource_base_name": "meeting_20240118_153045_123456",
       "status": {
         "state": "running",
         "stage": "transcribing",
@@ -286,19 +289,19 @@ Get processing status for all jobs in a batch.
 
 Download the rendered video file.
 
-**Response:** Video file (MP4) with filename: `{job_id}_rendered_video.mp4`
+**Response:** Video file (MP4) with filename: `{resource_base_name}.mp4`
 
 ### GET /api/jobs/{job_id}/transcript/json
 
 Download the transcript segments JSON file.
 
-**Response:** JSON file with filename: `{job_id}_transcript_segments.json`
+**Response:** JSON file with filename: `{resource_base_name}.json`
 
 ### GET /api/jobs/{job_id}/transcript/vtt
 
 Download the subtitles VTT file.
 
-**Response:** VTT file with filename: `{job_id}_subtitles.vtt`
+**Response:** VTT file with filename: `{resource_base_name}.vtt`
 
 ### GET /api/health
 
@@ -321,19 +324,23 @@ curl -X POST "http://localhost:8000/api/convert" \
   -F "image=@background.jpg"
 ```
 
-## Resource Naming Convention
+## Job IDs and Resource Naming
 
-All job artifacts follow a consistent naming pattern: `{purpose}_{type}.{ext}`
+Job IDs include a UTC timestamp suffix to keep them sortable and unique:
 
-For each conversion job, the following files are created in `data/jobs/{job_id}/`:
+- Format: `job_YYYYMMDD_HHMMSS_mmmuuu`
+- Example: `job_20240118_153045_123456`
 
-- `source_audio.m4a` - Original uploaded audio file
-- `background_image.jpg` - Background image (if provided)
-- `rendered_video.mp4` - Generated video (H.264, AAC, 1280x720)
-- `transcript_segments.json` - Timestamped transcript segments in JSON format
-- `subtitles.vtt` - WebVTT subtitle file
+Generated resources derive from the original input audio base name (sanitized) plus the same timestamp:
 
-This naming convention makes file purposes self-describing and consistent across the system.
+- Pattern: `[input_audio_name]_[timestamp].[ext]`
+- Example input: `meeting.m4a`
+- Example outputs:
+  - `meeting_20240118_153045_123456.mp4`
+  - `meeting_20240118_153045_123456.vtt`
+  - `meeting_20240118_153045_123456.json`
+
+Input audio names are sanitized to remove spaces and unsafe characters, and truncated to a safe length.
 
 ### Transcript JSON Format
 

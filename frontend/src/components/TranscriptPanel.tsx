@@ -25,8 +25,8 @@ export function TranscriptPanel({ segments, currentTime, onSeek }: TranscriptPan
   const [autoScrollEnabled, setAutoScrollEnabled] = useState(true);
   const activeRef = useRef<HTMLDivElement>(null);
   const listRef = useRef<HTMLDivElement>(null);
-  const lastScrollTopRef = useRef<number>(0);
-  const isUserScrollingRef = useRef<boolean>(false);
+  const isAutoScrollingRef = useRef<boolean>(false);
+  const userScrollIntentRef = useRef<boolean>(false);
 
   // Find active segment based on current time
   useEffect(() => {
@@ -34,45 +34,45 @@ export function TranscriptPanel({ segments, currentTime, onSeek }: TranscriptPan
       (seg) => currentTime >= seg.start && currentTime <= seg.end
     );
     setActiveSegmentId(active?.id || null);
+  }, [currentTime, segments]);
 
-    // Auto-scroll to active segment if enabled
-    if (autoScrollEnabled && activeRef.current && !isUserScrollingRef.current) {
-      activeRef.current.scrollIntoView({
-        behavior: 'smooth',
-        block: 'center',
-      });
-    }
-  }, [currentTime, segments, autoScrollEnabled]);
-
-  // Detect manual scrolling
-  useEffect(() => {
-    const handleScroll = () => {
-      if (!listRef.current) return;
-      
-      const currentScrollTop = listRef.current.scrollTop;
-      const scrollDiff = Math.abs(currentScrollTop - lastScrollTopRef.current);
-      
-      // If scroll difference is significant and not from our auto-scroll, disable auto-scroll
-      if (scrollDiff > 10 && autoScrollEnabled) {
-        // Check if this is user-initiated scroll (not programmatic)
-        setTimeout(() => {
-          if (listRef.current && Math.abs(listRef.current.scrollTop - currentScrollTop) < 5) {
-            // Scroll position stabilized, likely user scroll
-            setAutoScrollEnabled(false);
-            isUserScrollingRef.current = false;
-          }
-        }, 100);
-      }
-      
-      lastScrollTopRef.current = currentScrollTop;
-    };
-
+  const scrollToActive = (behavior: ScrollBehavior) => {
+    const activeElement = activeRef.current;
     const listElement = listRef.current;
-    if (listElement) {
-      listElement.addEventListener('scroll', handleScroll);
-      return () => listElement.removeEventListener('scroll', handleScroll);
+    if (!activeElement || !listElement) return;
+    const listRect = listElement.getBoundingClientRect();
+    const activeRect = activeElement.getBoundingClientRect();
+    const isInView = activeRect.top >= listRect.top && activeRect.bottom <= listRect.bottom;
+    if (isInView) return;
+    isAutoScrollingRef.current = true;
+    activeElement.scrollIntoView({
+      behavior,
+      block: 'center',
+    });
+  };
+
+  // Auto-scroll to active segment when enabled
+  useEffect(() => {
+    if (autoScrollEnabled && activeRef.current) {
+      scrollToActive('smooth');
     }
-  }, [autoScrollEnabled]);
+  }, [activeSegmentId, autoScrollEnabled]);
+
+  const handleUserScrollIntent = () => {
+    userScrollIntentRef.current = true;
+  };
+
+  const handleScroll = () => {
+    if (isAutoScrollingRef.current) {
+      isAutoScrollingRef.current = false;
+      userScrollIntentRef.current = false;
+      return;
+    }
+    if (autoScrollEnabled && userScrollIntentRef.current) {
+      setAutoScrollEnabled(false);
+    }
+    userScrollIntentRef.current = false;
+  };
 
   const handleSegmentClick = (segment: TranscriptSegment) => {
     onSeek(segment.start);
@@ -81,14 +81,7 @@ export function TranscriptPanel({ segments, currentTime, onSeek }: TranscriptPan
 
   const handleResumeAutoScroll = () => {
     setAutoScrollEnabled(true);
-    isUserScrollingRef.current = false;
-    // Snap to current active segment
-    if (activeRef.current) {
-      activeRef.current.scrollIntoView({
-        behavior: 'smooth',
-        block: 'center',
-      });
-    }
+    scrollToActive('auto');
   };
 
   return (
@@ -109,7 +102,16 @@ export function TranscriptPanel({ segments, currentTime, onSeek }: TranscriptPan
           )}
         </div>
       </div>
-      <div className="transcript-list" ref={listRef}>
+      <div
+        className="transcript-list"
+        ref={listRef}
+        onScroll={handleScroll}
+        onWheel={handleUserScrollIntent}
+        onTouchStart={handleUserScrollIntent}
+        onPointerDown={handleUserScrollIntent}
+        onKeyDown={handleUserScrollIntent}
+        tabIndex={0}
+      >
         {segments.map((segment) => {
           const isActive = segment.id === activeSegmentId;
           return (
@@ -118,6 +120,14 @@ export function TranscriptPanel({ segments, currentTime, onSeek }: TranscriptPan
               ref={isActive ? activeRef : null}
               className={`transcript-segment ${isActive ? 'active' : ''}`}
               onClick={() => handleSegmentClick(segment)}
+              role="button"
+              tabIndex={0}
+              onKeyDown={(event) => {
+                if (event.key === 'Enter' || event.key === ' ') {
+                  event.preventDefault();
+                  handleSegmentClick(segment);
+                }
+              }}
             >
               <div className="segment-time">
                 {formatTime(segment.start)} → {formatTime(segment.end)}
@@ -130,4 +140,3 @@ export function TranscriptPanel({ segments, currentTime, onSeek }: TranscriptPan
     </div>
   );
 }
-

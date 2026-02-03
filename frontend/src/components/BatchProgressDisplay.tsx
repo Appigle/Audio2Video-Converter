@@ -79,7 +79,7 @@ export function BatchProgressDisplay({ batchId, pollInterval = 750 }: BatchProgr
         {batchStatus.jobs.map((job) => (
           <div key={job.job_id} className="batch-job-item">
             <div className="batch-job-header">
-              <span className="batch-job-filename">{job.filename}</span>
+              <span className="batch-job-filename">{job.resource_base_name || job.filename}</span>
               <span className={`batch-job-status ${job.status.state}`}>
                 {job.status.state}
               </span>
@@ -91,4 +91,3 @@ export function BatchProgressDisplay({ batchId, pollInterval = 750 }: BatchProgr
     </div>
   );
 }
-
