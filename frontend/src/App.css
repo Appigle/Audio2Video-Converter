@@ -6,7 +6,7 @@
   --surface: #ffffff;
   --text: #2d3436;
   --text-strong: #2d3436;
-  --text-muted: #5c6163;
+  --text-muted: #4a4f50;
   --border: rgba(45, 52, 54, 0.12);
   --accent: #a87c82;
   --focus: #c08c3d;
@@ -55,6 +55,22 @@ button {
     var(--background);
 }
 
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 16px;
+  padding: 0.6rem 1rem;
+  background: var(--cta);
+  color: var(--text-strong);
+  border-radius: 999px;
+  z-index: 1000;
+  transition: top 0.2s ease;
+}
+
+.skip-link:focus {
+  top: 16px;
+}
+
 .app-header {
   padding: 2.5rem 5vw 3rem;
 }
@@ -88,7 +104,7 @@ button {
   display: flex;
   gap: 1.5rem;
   font-size: 0.95rem;
-  color: var(--text-muted);
+  color: var(--text-strong);
 }
 
 .nav-links a {
@@ -267,7 +283,7 @@ button {
   display: flex;
   flex-direction: column;
   gap: 0.1rem;
-  color: var(--text-muted);
+  color: var(--text-strong);
 }
 
 .health-subtext {
@@ -374,6 +390,17 @@ button {
   padding: 1rem;
   border-radius: 12px;
   border: 1px solid rgba(232, 180, 184, 0.7);
+}
+
+.sr-only {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
 }
 
 .results-section {

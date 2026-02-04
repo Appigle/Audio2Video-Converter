@@ -86,6 +86,7 @@ export const VideoPlayer = forwardRef<VideoPlayerRef, VideoPlayerProps>(
           className={`video-player video-layer ${isTransitioning ? 'fade-out' : 'visible'}`}
           crossOrigin="anonymous"
           onTimeUpdate={handleTimeUpdate}
+          aria-label="Converted video preview"
         >
           <source src={activeSource.videoUrl} type="video/mp4" />
           <track
@@ -106,6 +107,7 @@ export const VideoPlayer = forwardRef<VideoPlayerRef, VideoPlayerProps>(
             }`}
             crossOrigin="anonymous"
             onLoadedData={() => setPendingReady(true)}
+            aria-hidden="true"
           >
             <source src={pendingSource.videoUrl} type="video/mp4" />
             <track

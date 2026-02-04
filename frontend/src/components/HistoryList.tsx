@@ -81,6 +81,7 @@ export function HistoryList({ entries, selectedId, onSelect }: HistoryListProps)
           onClick={() => onSelect(entry)}
           role="button"
           tabIndex={0}
+          aria-pressed={selectedId === entry.id}
           onKeyDown={(event) => {
             if (event.key === 'Enter' || event.key === ' ') {
               onSelect(entry);

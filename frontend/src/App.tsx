@@ -174,19 +174,22 @@ function App() {
 
   return (
     <div className="app">
+      <a className="skip-link" href="#main-content">
+        Skip to main content
+      </a>
       <header className="app-header">
         <div className="top-nav">
           <div className="brand">
             <span className="brand-mark" />
             <span>Audio2Video Studio</span>
           </div>
-          <nav className="nav-links">
+          <nav className="nav-links" aria-label="Primary">
             <a href="#services">Services</a>
             <a href="#testimonials">Testimonials</a>
             <a href="#booking">Booking</a>
             <a href="#contact">Contact</a>
           </nav>
-          <div className="health-badge">
+          <div className="health-badge" role="status" aria-live="polite">
             <span
               className={`health-indicator ${
                 healthStatus ? 'healthy' : healthError ? 'unhealthy' : 'unknown'
@@ -248,9 +251,9 @@ function App() {
         </div>
       </header>
 
-      <main className="app-main">
+      <main className="app-main" id="main-content">
         {error && (
-          <div className="error-message">
+          <div className="error-message" role="alert" aria-live="assertive">
             <strong>Error:</strong> {error}
           </div>
         )}

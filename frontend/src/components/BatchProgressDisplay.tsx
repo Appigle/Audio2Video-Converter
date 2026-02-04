@@ -46,7 +46,7 @@ export function BatchProgressDisplay({ batchId, pollInterval = 750 }: BatchProgr
 
   if (error) {
     return (
-      <div className="batch-progress error">
+      <div className="batch-progress error" role="alert" aria-live="assertive">
         <div className="progress-error">
           <strong>Error:</strong> {error.message}
         </div>
@@ -55,7 +55,11 @@ export function BatchProgressDisplay({ batchId, pollInterval = 750 }: BatchProgr
   }
 
   if (!batchStatus) {
-    return <div className="batch-progress">Loading batch status...</div>;
+    return (
+      <div className="batch-progress" role="status" aria-live="polite">
+        Loading batch status...
+      </div>
+    );
   }
 
   const completedCount = batchStatus.jobs.filter(
@@ -68,7 +72,7 @@ export function BatchProgressDisplay({ batchId, pollInterval = 750 }: BatchProgr
 
   return (
     <div className="batch-progress">
-      <div className="batch-header">
+      <div className="batch-header" role="status" aria-live="polite">
         <h3>Batch Processing</h3>
         <div className="batch-summary">
           {completedCount}/{totalCount} completed

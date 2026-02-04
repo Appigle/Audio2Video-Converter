@@ -111,6 +111,7 @@ export function TranscriptPanel({ segments, currentTime, onSeek }: TranscriptPan
         onPointerDown={handleUserScrollIntent}
         onKeyDown={handleUserScrollIntent}
         tabIndex={0}
+        aria-label="Transcript segments"
       >
         {segments.map((segment) => {
           const isActive = segment.id === activeSegmentId;

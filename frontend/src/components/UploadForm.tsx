@@ -109,7 +109,11 @@ export function UploadForm({ onSuccess, onBatchSuccess, onError }: UploadFormPro
           disabled={isUploading}
           multiple
           required
+          aria-describedby="audio-help"
         />
+        <div id="audio-help" className="sr-only">
+          Upload one or more .m4a files up to 100 megabytes each.
+        </div>
         {audioFiles.length > 0 && (
           <div className="file-list">
             {audioFiles.map((file, idx) => (
@@ -130,7 +134,11 @@ export function UploadForm({ onSuccess, onBatchSuccess, onError }: UploadFormPro
           accept=".jpg,.jpeg,.png"
           onChange={handleImageChange}
           disabled={isUploading}
+          aria-describedby="image-help"
         />
+        <div id="image-help" className="sr-only">
+          Optional background image in JPG or PNG format.
+        </div>
         {imageFile && (
           <span className="file-info">
             Selected: {imageFile.name}
@@ -144,4 +152,3 @@ export function UploadForm({ onSuccess, onBatchSuccess, onError }: UploadFormPro
     </form>
   );
 }
-

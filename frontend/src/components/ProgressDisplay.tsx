@@ -9,7 +9,7 @@ interface ProgressDisplayProps {
 export function ProgressDisplay({ progress, error }: ProgressDisplayProps) {
   if (error) {
     return (
-      <div className="progress-display error">
+      <div className="progress-display error" role="alert" aria-live="assertive">
         <div className="progress-error">
           <strong>Error:</strong> {error.message}
         </div>
@@ -19,7 +19,7 @@ export function ProgressDisplay({ progress, error }: ProgressDisplayProps) {
 
   if (!progress) {
     return (
-      <div className="progress-display">
+      <div className="progress-display" role="status" aria-live="polite">
         <div className="progress-message">Loading progress...</div>
       </div>
     );
@@ -42,14 +42,21 @@ export function ProgressDisplay({ progress, error }: ProgressDisplayProps) {
   };
 
   return (
-    <div className="progress-display">
+    <div className="progress-display" role="status" aria-live="polite">
       <div className="progress-header">
         <span className={getStateClass(progress.state)}>
           {progress.state.toUpperCase()}
         </span>
         <span className="progress-stage">{getStageLabel(progress.stage)}</span>
       </div>
-      <div className="progress-bar-container">
+      <div
+        className="progress-bar-container"
+        role="progressbar"
+        aria-valuenow={progress.percent}
+        aria-valuemin={0}
+        aria-valuemax={100}
+        aria-label={`Progress ${progress.percent}%`}
+      >
         <div
           className="progress-bar"
           style={{ width: `${progress.percent}%` }}
@@ -67,4 +74,3 @@ export function ProgressDisplay({ progress, error }: ProgressDisplayProps) {
     </div>
   );
 }
-

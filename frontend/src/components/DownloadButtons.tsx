@@ -62,6 +62,7 @@ export function DownloadButtons({
           className="download-btn"
           onClick={() => handleDownload(videoUrl, `${baseName}.mp4`)}
           title="Download rendered video"
+          aria-label="Download video file"
         >
           <span className="download-icon" aria-hidden="true">
             <svg viewBox="0 0 24 24" role="img">
@@ -77,6 +78,7 @@ export function DownloadButtons({
           className="download-btn"
           onClick={() => handleDownload(transcriptVttUrl, `${baseName}.vtt`)}
           title="Download subtitles"
+          aria-label="Download subtitles file"
         >
           <span className="download-icon" aria-hidden="true">
             <svg viewBox="0 0 24 24" role="img">
@@ -92,6 +94,7 @@ export function DownloadButtons({
           className="download-btn"
           onClick={() => handleDownload(transcriptJsonUrl, `${baseName}.json`)}
           title="Download transcript segments"
+          aria-label="Download transcript JSON file"
         >
           <span className="download-icon" aria-hidden="true">
             <svg viewBox="0 0 24 24" role="img">
