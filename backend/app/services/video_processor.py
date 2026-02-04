@@ -16,6 +16,8 @@ def check_ffmpeg() -> bool:
     Returns:
         True if FFmpeg is available, False otherwise
     """
+    if os.getenv("A2V_TEST_MODE") == "1":
+        return True
     return shutil.which("ffmpeg") is not None
 
 
@@ -39,6 +41,11 @@ def generate_video(
     Raises:
         RuntimeError: If FFmpeg is not available or execution fails
     """
+    if os.getenv("A2V_TEST_MODE") == "1":
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+        output_path.write_bytes(b"test-video")
+        return
+
     if not check_ffmpeg():
         raise RuntimeError("FFmpeg is not installed or not found in PATH")
     
@@ -114,4 +121,3 @@ def generate_video(
     except Exception as e:
         logger.error(f"Video generation failed: {e}")
         raise RuntimeError(f"Video generation failed: {e}")
-

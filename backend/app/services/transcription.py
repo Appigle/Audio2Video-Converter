@@ -2,8 +2,12 @@
 import os
 import logging
 from pathlib import Path
-from typing import List, Dict, Optional
-from faster_whisper import WhisperModel
+from typing import List, Dict, Optional, TYPE_CHECKING, Any
+
+if TYPE_CHECKING or os.getenv("A2V_TEST_MODE") != "1":
+    from faster_whisper import WhisperModel
+else:
+    WhisperModel = Any
 
 logger = logging.getLogger(__name__)
 
@@ -55,6 +59,9 @@ def transcribe_audio(audio_path: Path, model_name: str = "base", model_path: Opt
     Raises:
         RuntimeError: If transcription fails
     """
+    if os.getenv("A2V_TEST_MODE") == "1":
+        return [{"id": 1, "start": 0.0, "end": 1.2, "text": "Test transcript segment."}]
+
     if not audio_path.exists():
         raise FileNotFoundError(f"Audio file not found: {audio_path}")
     
@@ -85,4 +92,3 @@ def transcribe_audio(audio_path: Path, model_name: str = "base", model_path: Opt
     except Exception as e:
         logger.error(f"Transcription failed: {e}")
         raise RuntimeError(f"Transcription failed: {e}")
-

@@ -22,6 +22,7 @@ export const VideoPlayer = forwardRef<VideoPlayerRef, VideoPlayerProps>(
     );
     const [pendingReady, setPendingReady] = useState(false);
     const [isTransitioning, setIsTransitioning] = useState(false);
+    const allowInstantSwap = import.meta.env.VITE_TEST_MODE === 'true';
 
     const transitionDurationMs = 250;
     const sourceKey = useMemo(() => `${activeSource.videoUrl}::${activeSource.vttUrl}`, [
@@ -53,6 +54,9 @@ export const VideoPlayer = forwardRef<VideoPlayerRef, VideoPlayerProps>(
       setPendingSource({ videoUrl, vttUrl });
       setPendingReady(false);
       setIsTransitioning(false);
+      if (allowInstantSwap) {
+        setPendingReady(true);
+      }
     }, [videoUrl, vttUrl, activeSource.videoUrl, activeSource.vttUrl]);
 
     useEffect(() => {

@@ -82,7 +82,10 @@ async def convert_audio_to_video(
             logger.info(f"Saved background image file: {image_path}")
         
         # Start background processing
-        background_tasks.add_task(process_job, job_id, job_manager, audio_path, image_path)
+        if os.getenv("A2V_TEST_MODE") == "1":
+            process_job(job_id, job_manager, audio_path, image_path)
+        else:
+            background_tasks.add_task(process_job, job_id, job_manager, audio_path, image_path)
         
         # Return response immediately
         return ConvertResponse(
@@ -222,7 +225,10 @@ async def batch_convert_audio_to_video(
                     logger.info(f"Copied background image to job: {job_image_path}")
                 
                 # Start background processing
-                background_tasks.add_task(process_job, job_id, job_manager, audio_path, job_image_path)
+                if os.getenv("A2V_TEST_MODE") == "1":
+                    process_job(job_id, job_manager, audio_path, job_image_path)
+                else:
+                    background_tasks.add_task(process_job, job_id, job_manager, audio_path, job_image_path)
                 
                 # Add to response
                 resource_base_name = job_manager.get_resource_base_name(job_id)

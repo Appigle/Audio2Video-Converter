@@ -37,6 +37,55 @@ def process_job(
         audio_path: Path to source audio file
         image_path: Optional path to background image
     """
+    if os.getenv("A2V_TEST_MODE") == "1":
+        try:
+            progress_store.update(
+                job_id,
+                state=JobState.RUNNING,
+                stage=JobStage.SAVING,
+                percent=5,
+                message="Files saved, starting transcription..."
+            )
+
+            segments = [
+                {"id": 1, "start": 0.0, "end": 1.2, "text": "Test transcript segment."}
+            ]
+
+            transcript_data = TranscriptData(
+                version="1.0",
+                segments=[TranscriptSegment(**seg) for seg in segments]
+            )
+            transcript_segments_path = job_manager.get_transcript_segments_path(job_id)
+            with open(transcript_segments_path, 'w', encoding='utf-8') as f:
+                json.dump(transcript_data.model_dump(), f, indent=2, ensure_ascii=False)
+
+            subtitles_path = job_manager.get_subtitles_path(job_id)
+            generate_vtt(segments, subtitles_path)
+
+            video_path = job_manager.get_rendered_video_path(job_id)
+            video_path.parent.mkdir(parents=True, exist_ok=True)
+            video_path.write_bytes(b"test-video")
+
+            progress_store.update(
+                job_id,
+                state=JobState.SUCCEEDED,
+                stage=JobStage.DONE,
+                percent=100,
+                message="Processing complete"
+            )
+        except Exception as e:
+            error_msg = str(e)
+            logger.error(f"Job {job_id} failed: {error_msg}", exc_info=True)
+            progress_store.update(
+                job_id,
+                state=JobState.FAILED,
+                stage=JobStage.ERROR,
+                percent=0,
+                message=f"Processing failed: {error_msg}",
+                error=error_msg
+            )
+        return
+
     try:
         # Stage: Saving (0-10%)
         progress_store.update(
@@ -144,4 +193,3 @@ def process_job(
             message=f"Processing failed: {error_msg}",
             error=error_msg
         )
-

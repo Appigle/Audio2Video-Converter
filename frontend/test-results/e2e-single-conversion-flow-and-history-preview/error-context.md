@@ -1,0 +1,142 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e3]:
+  - link "Skip to main content" [ref=e4] [cursor=pointer]:
+    - /url: "#main-content"
+  - banner [ref=e5]:
+    - generic [ref=e6]:
+      - generic [ref=e9]: Audio2Video Studio
+      - navigation "Primary" [ref=e10]:
+        - link "Services" [ref=e11] [cursor=pointer]:
+          - /url: "#services"
+        - link "Testimonials" [ref=e12] [cursor=pointer]:
+          - /url: "#testimonials"
+        - link "Booking" [ref=e13] [cursor=pointer]:
+          - /url: "#booking"
+        - link "Contact" [ref=e14] [cursor=pointer]:
+          - /url: "#contact"
+      - status [ref=e15]:
+        - generic [ref=e17]: Service online
+    - generic [ref=e18]:
+      - generic [ref=e19]:
+        - generic [ref=e20]: Calm, polished conversions
+        - heading "Turn audio into a refined video experience." [level=1] [ref=e21]
+        - paragraph [ref=e22]: Upload your audio once and receive a beautifully packaged video with subtitles and a readable transcript. Local processing keeps everything private.
+        - generic [ref=e23]:
+          - link "Start conversion" [ref=e24] [cursor=pointer]:
+            - /url: "#upload"
+          - link "View history" [ref=e25] [cursor=pointer]:
+            - /url: "#history"
+        - generic [ref=e26]:
+          - generic [ref=e27]:
+            - heading "Local-first" [level=3] [ref=e28]
+            - paragraph [ref=e29]: No external APIs required.
+          - generic [ref=e30]:
+            - heading "Multi-file ready" [level=3] [ref=e31]
+            - paragraph [ref=e32]: Batch conversions with progress tracking.
+          - generic [ref=e33]:
+            - heading "Playback synced" [level=3] [ref=e34]
+            - paragraph [ref=e35]: Click transcripts to jump in time.
+      - generic [ref=e36]:
+        - generic [ref=e37]:
+          - heading "Upload your audio" [level=2] [ref=e38]
+          - paragraph [ref=e39]: Ready when you are. We will handle the rest.
+        - generic [ref=e40]:
+          - generic [ref=e41]:
+            - generic [ref=e42]: Audio File (.m4a, max 100MB each) *
+            - button "Audio File (.m4a, max 100MB each) *" [ref=e43] [cursor=pointer]
+            - generic [ref=e44]: Upload one or more .m4a files up to 100 megabytes each.
+          - generic [ref=e45]:
+            - generic [ref=e46]: Background Image (.jpg, .png) - Optional
+            - button "Background Image (.jpg, .png) - Optional" [ref=e47] [cursor=pointer]
+            - generic [ref=e48]: Optional background image in JPG or PNG format.
+          - button "Convert to Video" [disabled] [ref=e49]
+        - generic [ref=e50]: Supports .m4a files up to 100MB each.
+  - main [ref=e51]:
+    - generic [ref=e52]:
+      - generic [ref=e53]:
+        - strong [ref=e54]: "Job ID:"
+        - text: job_20260204_145006_197949
+        - generic [ref=e55]: "Output name: sample_20260204_145006_197949"
+      - status [ref=e57]:
+        - generic [ref=e58]:
+          - generic [ref=e59]: FAILED
+          - generic [ref=e60]: Error
+        - progressbar "Progress 0%" [ref=e61]
+        - generic [ref=e62]:
+          - generic [ref=e63]: 0%
+          - generic [ref=e64]: "Processing failed: Transcription failed: [Errno 1094995529] Invalid data found when processing input: 'data/jobs/job_20260204_145006_197949/sample_20260204_145006_197949.m4a'"
+        - generic [ref=e65]:
+          - strong [ref=e66]: "Error:"
+          - text: "Transcription failed: [Errno 1094995529] Invalid data found when processing input: 'data/jobs/job_20260204_145006_197949/sample_20260204_145006_197949.m4a'"
+      - button "New Upload" [ref=e68] [cursor=pointer]
+    - generic [ref=e69]:
+      - generic [ref=e70]:
+        - heading "Your conversion history" [level=2] [ref=e71]
+        - paragraph [ref=e72]: Select a past conversion to preview and download.
+      - 'button "sample_20260204_145006_197949 Job: job_20260204_145006_197949 Saved: 2/4/2026, 9:50:06 AM Source: single Download all files Video Subtitles Transcript" [ref=e74] [cursor=pointer]':
+        - generic [ref=e75]:
+          - generic [ref=e76]: sample_20260204_145006_197949
+          - generic [ref=e77]:
+            - generic [ref=e78]: "Job: job_20260204_145006_197949"
+            - generic [ref=e79]: "Saved: 2/4/2026, 9:50:06 AM"
+            - generic [ref=e80]: "Source: single"
+        - generic [ref=e81]:
+          - button "Download all files" [ref=e82]
+          - generic [ref=e83]:
+            - button "Video" [ref=e84]
+            - button "Subtitles" [ref=e85]
+            - button "Transcript" [ref=e86]
+    - generic [ref=e87]:
+      - generic [ref=e88]:
+        - heading "Services" [level=2] [ref=e89]
+        - paragraph [ref=e90]: Everything you need to move from audio to video without friction.
+      - generic [ref=e91]:
+        - generic [ref=e92]:
+          - heading "Curated video output" [level=3] [ref=e93]
+          - paragraph [ref=e94]: Static background video rendered in 720p with balanced audio levels.
+        - generic [ref=e95]:
+          - heading "Accurate transcripts" [level=3] [ref=e96]
+          - paragraph [ref=e97]: Timestamped JSON and VTT files ready for captions or archives.
+        - generic [ref=e98]:
+          - heading "Progress-aware" [level=3] [ref=e99]
+          - paragraph [ref=e100]: Track each stage of transcription and rendering in real time.
+    - generic [ref=e101]:
+      - generic [ref=e102]:
+        - heading "Testimonials" [level=2] [ref=e103]
+        - paragraph [ref=e104]: Trusted by teams who value calm, polished delivery.
+      - generic [ref=e105]:
+        - generic [ref=e106]:
+          - paragraph [ref=e107]: “We ship client recaps in minutes. The transcript syncing is effortless for our editors.”
+          - generic [ref=e108]: Studio Lead, Riverside
+        - generic [ref=e109]:
+          - paragraph [ref=e110]: “Batch conversions keep our workflow smooth. The UI feels premium and predictable.”
+          - generic [ref=e111]: Producer, Northwind Media
+        - generic [ref=e112]:
+          - paragraph [ref=e113]: “Local-only processing gives our team the privacy we need.”
+          - generic [ref=e114]: Operations, Bloom Wellness
+    - generic [ref=e116]:
+      - generic [ref=e117]:
+        - heading "Ready to publish?" [level=2] [ref=e118]
+        - paragraph [ref=e119]: Start a new conversion or review your latest exports.
+      - generic [ref=e120]:
+        - link "Start conversion" [ref=e121] [cursor=pointer]:
+          - /url: "#upload"
+        - link "Browse history" [ref=e122] [cursor=pointer]:
+          - /url: "#history"
+    - generic [ref=e123]:
+      - generic [ref=e124]:
+        - heading "Contact" [level=2] [ref=e125]
+        - paragraph [ref=e126]: Need help with setup? Check your local backend logs or reach your technical lead for support.
+      - generic [ref=e127]:
+        - generic [ref=e128]:
+          - heading "Local health" [level=3] [ref=e129]
+          - paragraph [ref=e130]: Run the backend on port 8000 and ensure FFmpeg is installed.
+        - generic [ref=e131]:
+          - heading "Frontend" [level=3] [ref=e132]
+          - paragraph [ref=e133]: Use port 5173 or 5174 and keep the API URL in sync.
+        - generic [ref=e134]:
+          - heading "Privacy" [level=3] [ref=e135]
+          - paragraph [ref=e136]: Your files remain on your machine from upload to export.
+```
