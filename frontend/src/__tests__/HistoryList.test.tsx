@@ -1,8 +1,8 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, it, expect, vi } from 'vitest';
-import { HistoryList } from '../components/HistoryList';
-import type { HistoryEntry } from '../types/api';
+import { HistoryList } from '../features/history/components/HistoryList';
+import type { HistoryEntry } from '../entities/api';
 
 const entries: HistoryEntry[] = [
   {

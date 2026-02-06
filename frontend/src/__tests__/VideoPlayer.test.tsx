@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { describe, it, expect } from 'vitest';
-import { VideoPlayer } from '../components/VideoPlayer';
+import { VideoPlayer } from '../shared/components/VideoPlayer';
 
 
 describe('VideoPlayer', () => {

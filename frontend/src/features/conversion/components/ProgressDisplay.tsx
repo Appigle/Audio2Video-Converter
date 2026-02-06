@@ -1,4 +1,4 @@
-import type { ProgressResponse } from '../types/api';
+import type { ProgressResponse } from '../../../entities/api';
 import './ProgressDisplay.css';
 
 interface ProgressDisplayProps {

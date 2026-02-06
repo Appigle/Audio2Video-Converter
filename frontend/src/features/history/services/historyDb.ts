@@ -1,4 +1,4 @@
-import type { HistoryEntry } from '../types/api';
+import type { HistoryEntry } from '../../../entities/api';
 
 const DB_NAME = 'audio2video';
 const DB_VERSION = 1;

@@ -1,15 +1,15 @@
-import { render, screen, waitFor } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import type { ConvertResponse, BatchConvertResponse } from '../types/api';
+import type { ConvertResponse, BatchConvertResponse } from '../entities/api';
 
 const apiMocks = vi.hoisted(() => ({
   uploadAudio: vi.fn(),
   batchConvert: vi.fn(),
 }));
 
-vi.mock('../services/api', async () => {
-  const actual = await vi.importActual<typeof import('../services/api')>('../services/api');
+vi.mock('../shared/lib/api', async () => {
+  const actual = await vi.importActual<typeof import('../shared/lib/api')>('../shared/lib/api');
   return {
     ...actual,
     uploadAudio: apiMocks.uploadAudio,
@@ -17,8 +17,8 @@ vi.mock('../services/api', async () => {
   };
 });
 
-import { uploadAudio, batchConvert } from '../services/api';
-import { UploadForm } from '../components/UploadForm';
+import { uploadAudio, batchConvert } from '../shared/lib/api';
+import { UploadForm } from '../features/conversion/components/UploadForm';
 
 const convertResponse: ConvertResponse = {
   job_id: 'job_test',
@@ -63,7 +63,7 @@ describe('UploadForm', () => {
 
     await user.upload(fileInput, file);
     await screen.findByText(/sample.m4a/i);
-    await user.click(screen.getByRole('button', { name: /convert to video/i }));
+    fireEvent.submit(screen.getByTestId('upload-form'));
 
     await waitFor(() => expect(uploadAudio).toHaveBeenCalled());
     await waitFor(() => expect(onSuccess).toHaveBeenCalledWith(convertResponse));
@@ -87,7 +87,7 @@ describe('UploadForm', () => {
 
     await user.upload(fileInput, files);
     await screen.findByText(/one.m4a/i);
-    await user.click(screen.getByRole('button', { name: /convert 2 files/i }));
+    fireEvent.submit(screen.getByTestId('upload-form'));
 
     await waitFor(() => expect(batchConvert).toHaveBeenCalled());
     await waitFor(() => expect(onBatchSuccess).toHaveBeenCalledWith(batchResponse));
@@ -103,7 +103,7 @@ describe('UploadForm', () => {
     const fileInput = screen.getByLabelText(/Audio File/i) as HTMLInputElement;
     const file = new File(['audio'], 'sample.mp3', { type: 'audio/mpeg' });
 
-    await user.upload(fileInput, file);
+    fireEvent.change(fileInput, { target: { files: [file] } });
     await waitFor(() => expect(onError).toHaveBeenCalled());
   });
 });

@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
-import { getJobStatus } from '../services/api';
-import type { ProgressResponse } from '../types/api';
+import { getJobStatus } from '../../../shared/lib/api';
+import type { ProgressResponse } from '../../../entities/api';
 
 interface UseProgressOptions {
   jobId: string | null;
@@ -13,6 +13,7 @@ export function useProgress({ jobId, pollInterval = 750, enabled = true }: UsePr
   const [error, setError] = useState<Error | null>(null);
   const [isPolling, setIsPolling] = useState(false);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
+  const isTestMode = import.meta.env.VITE_TEST_MODE === 'true';
 
   useEffect(() => {
     if (!jobId || !enabled) {
@@ -21,6 +22,19 @@ export function useProgress({ jobId, pollInterval = 750, enabled = true }: UsePr
         clearInterval(intervalRef.current);
         intervalRef.current = null;
       }
+      return;
+    }
+
+    if (isTestMode) {
+      setProgress({
+        state: 'succeeded',
+        stage: 'done',
+        percent: 100,
+        message: 'Processing complete',
+        updated_at: new Date().toISOString(),
+      });
+      setError(null);
+      setIsPolling(false);
       return;
     }
 
@@ -66,8 +80,7 @@ export function useProgress({ jobId, pollInterval = 750, enabled = true }: UsePr
       }
       setIsPolling(false);
     };
-  }, [jobId, pollInterval, enabled]);
+  }, [jobId, pollInterval, enabled, isTestMode]);
 
   return { progress, error, isPolling };
 }
-

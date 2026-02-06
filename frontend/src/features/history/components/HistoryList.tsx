@@ -1,5 +1,5 @@
-import { getResourceUrl } from '../services/api';
-import type { HistoryEntry } from '../types/api';
+import { getResourceUrl } from '../../../shared/lib/api';
+import type { HistoryEntry } from '../../../entities/api';
 import './HistoryList.css';
 
 interface HistoryListProps {

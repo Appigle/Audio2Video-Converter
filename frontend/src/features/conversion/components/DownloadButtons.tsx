@@ -1,4 +1,4 @@
-import { getResourceUrl } from '../services/api';
+import { getResourceUrl } from '../../../shared/lib/api';
 import './DownloadButtons.css';
 
 interface DownloadButtonsProps {
@@ -55,7 +55,7 @@ export function DownloadButtons({
   };
 
   return (
-    <div className="download-buttons">
+    <div className="download-buttons" data-testid="download-section">
       <h4>Download</h4>
       <div className="download-buttons-group">
         <button

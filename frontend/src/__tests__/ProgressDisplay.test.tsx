@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import { describe, it, expect } from 'vitest';
-import { ProgressDisplay } from '../components/ProgressDisplay';
-import type { ProgressResponse } from '../types/api';
+import { ProgressDisplay } from '../features/conversion/components/ProgressDisplay';
+import type { ProgressResponse } from '../entities/api';
 
 const progress: ProgressResponse = {
   state: 'running',

@@ -15,7 +15,7 @@ test('single conversion flow and history preview', async ({ page }) => {
   await page.getByRole('button', { name: /convert to video/i }).click();
 
   await expect(page.getByText(/Job ID:/i)).toBeVisible();
-  await expect(page.getByRole('heading', { name: 'Download' })).toBeVisible({
+  await expect(page.getByTestId('download-section')).toBeVisible({
     timeout: 60_000,
   });
 

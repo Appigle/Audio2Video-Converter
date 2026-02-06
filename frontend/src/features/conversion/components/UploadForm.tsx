@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react';
-import { uploadAudio, batchConvert } from '../services/api';
-import type { ConvertResponse, BatchConvertResponse } from '../types/api';
+import { uploadAudio, batchConvert } from '../../../shared/lib/api';
+import type { ConvertResponse, BatchConvertResponse } from '../../../entities/api';
 import './UploadForm.css';
 
 interface UploadFormProps {
@@ -94,7 +94,7 @@ export function UploadForm({ onSuccess, onBatchSuccess, onError }: UploadFormPro
   };
 
   return (
-    <form onSubmit={handleSubmit} className="upload-form">
+    <form onSubmit={handleSubmit} className="upload-form" data-testid="upload-form">
       <div className="form-group">
         <label htmlFor="audio">
           Audio File{isBatchMode ? 's' : ''} (.m4a, max 100MB each) *

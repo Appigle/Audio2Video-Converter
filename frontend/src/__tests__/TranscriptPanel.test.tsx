@@ -1,8 +1,8 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, it, expect, vi } from 'vitest';
-import { TranscriptPanel } from '../components/TranscriptPanel';
-import type { TranscriptSegment } from '../types/api';
+import { TranscriptPanel } from '../features/transcript/components/TranscriptPanel';
+import type { TranscriptSegment } from '../entities/api';
 
 const segments: TranscriptSegment[] = [
   { id: 1, start: 0, end: 1, text: 'Hello' },

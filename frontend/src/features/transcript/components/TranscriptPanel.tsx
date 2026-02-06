@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import type { TranscriptSegment } from '../types/api';
+import type { TranscriptSegment } from '../../../entities/api';
 import './TranscriptPanel.css';
 
 interface TranscriptPanelProps {

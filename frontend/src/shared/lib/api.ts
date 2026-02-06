@@ -2,7 +2,7 @@
 import type {
   ConvertResponse, ErrorResponse, TranscriptData,
   ProgressResponse, BatchConvertResponse, BatchStatusResponse, HealthResponse
-} from '../types/api';
+} from '../../entities/api';
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000';
 

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { getBatchStatus } from '../services/api';
-import type { BatchStatusResponse } from '../types/api';
+import { getBatchStatus } from '../../../shared/lib/api';
+import type { BatchStatusResponse } from '../../../entities/api';
 import { ProgressDisplay } from './ProgressDisplay';
 import './BatchProgressDisplay.css';
 
